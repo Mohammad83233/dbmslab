@@ -1,0 +1,133 @@
+INSERT INTO Employee (emp_no, emp_name, designation, deptno, salary, mobile)
+VALUES
+(1, 'John Doe', 'Manager', 'D01', 50000, '1234567890'),
+(2, 'Alice Smith', 'Developer', 'D01', 45000, '1234567891'),
+(3, 'Bob Brown', 'Analyst', 'D02', 40000, '1234567892'),
+(4, 'Charlie Green', 'Manager', 'D03', 60000, '1234567893'),
+(5, 'David White', 'Developer', 'D02', 38000, '1234567894'),
+(6, 'Eve Black', 'Developer', 'D03', 47000, '1234567895'),
+(7, 'Frank Blue', 'Manager', 'D02', 52000, '1234567896'),
+(8, 'Grace Red', 'Analyst', 'D03', 41000, '1234567897'),
+(9, 'Hannah Gold', 'Computer Assistant', 'D01', 42000, '1234567898'),
+(10, 'Ivy Silver', 'Developer', 'D01', 44000, '1234567899');
+
+INSERT INTO Department (deptno, dept_name)
+VALUES
+('D01', 'HR'),
+('D02', 'IT'),
+('D03', 'Finance');
+Display all the records from the above tables.
+
+sql
+Copy
+SELECT * FROM Employee;
+SELECT * FROM Department;
+Display the emp_no and name of employees from department no ‘D02’.
+
+sql
+Copy
+SELECT emp_no, emp_name FROM Employee WHERE deptno = 'D02';
+Display emp_no, emp_name, designation, deptno, and salary of employees in the descending order of salary.
+
+sql
+Copy
+SELECT emp_no, emp_name, designation, deptno, salary 
+FROM Employee 
+ORDER BY salary DESC;
+Display the emp_no, name of employees whose salary is between 2000 and 5000.
+
+sql
+Copy
+SELECT emp_no, emp_name FROM Employee WHERE salary BETWEEN 2000 AND 5000;
+Display the designations without duplicate values.
+
+sql
+Copy
+SELECT DISTINCT designation FROM Employee;
+Change the salary of employees to 45000 whose designation is 'Manager'.
+
+sql
+Copy
+UPDATE Employee 
+SET salary = 45000 
+WHERE designation = 'Manager';
+Change the mobile number of employees named John.
+
+sql
+Copy
+UPDATE Employee 
+SET mobile = '0987654321' 
+WHERE emp_name = 'John Doe';
+Delete all employees whose salary is equal to Rs. 7000.
+
+sql
+Copy
+DELETE FROM Employee WHERE salary = 7000;
+Retrieve the name, mobile number of all employees whose name starts with “A”.
+
+sql
+Copy
+SELECT emp_name, mobile 
+FROM Employee 
+WHERE emp_name LIKE 'A%';
+Display the details of the employee whose name has at least three characters and salary greater than 20000.
+sql
+Copy
+SELECT * FROM Employee 
+WHERE LENGTH(emp_name) >= 3 AND salary > 20000;
+Display the details of employees with empid ‘emp1’, ‘emp2’, and ‘emp6’.
+sql
+Copy
+SELECT * FROM Employee 
+WHERE emp_no IN ('emp1', 'emp2', 'emp6');
+Display employee name and employee id of those who have a salary between 120000 and 300000.
+sql
+Copy
+SELECT emp_no, emp_name 
+FROM Employee 
+WHERE salary BETWEEN 120000 AND 300000;
+Display the details of employees whose designation is ‘Manager’ or ‘Computer Assistant’.
+sql
+Copy
+SELECT * FROM Employee 
+WHERE designation IN ('Manager', 'Computer Assistant');
+Displays how many employees work for each department.
+sql
+Copy
+SELECT deptno, COUNT(*) AS employee_count 
+FROM Employee 
+GROUP BY deptno;
+Displays average salary of employees in each department.
+sql
+Copy
+SELECT deptno, AVG(salary) AS average_salary 
+FROM Employee 
+GROUP BY deptno;
+Displays total salary of employees in each department.
+sql
+Copy
+SELECT deptno, SUM(salary) AS total_salary 
+FROM Employee 
+GROUP BY deptno;
+Displays top and lower salary of employees in each department.
+sql
+Copy
+SELECT deptno, MAX(salary) AS top_salary, MIN(salary) AS lower_salary 
+FROM Employee 
+GROUP BY deptno;
+Displays average salary of employees in all departments except department with department number ‘D05’.
+sql
+Copy
+SELECT deptno, AVG(salary) AS average_salary 
+FROM Employee 
+WHERE deptno != 'D05'
+GROUP BY deptno;
+Displays average salary of employees in all departments except department with department number ‘D01’ and average salary greater than 20000 in the ascending order of average salary.
+sql
+Copy
+SELECT deptno, AVG(salary) AS average_salary 
+FROM Employee 
+WHERE deptno != 'D01' 
+GROUP BY deptno 
+HAVING AVG(salary) > 20000
+ORDER BY average_salary ASC;
